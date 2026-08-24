@@ -3,7 +3,7 @@ DEVICE_PATH := device/motorola/nevada
 # For building with minimal manifest
 ALLOW_MISSING_DEPENDENCIES := true
 
-# A/B
+# A/B C D E F G H I J K L M N O P Q R S T U V W X Y Z
 AB_OTA_UPDATER := true
 AB_OTA_PARTITIONS += \
     vendor \
@@ -14,14 +14,13 @@ AB_OTA_PARTITIONS += \
     vendor_dlkm \
     system_ext \
     system_dlkm
-
 BOARD_USES_RECOVERY_AS_BOOT := true
 
-# Architecture
+# Architecture Huh 
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
-TARGET_CPU_ABI2 :=
+TARGET_CPU_ABI2 := 
 TARGET_CPU_VARIANT := generic
 TARGET_CPU_VARIANT_RUNTIME := cortex-a55
 
@@ -32,10 +31,10 @@ OVERRIDE_TARGET_FLATTEN_APEX := true
 TARGET_BOOTLOADER_BOARD_NAME := nevada
 TARGET_NO_BOOTLOADER := true
 
-# Display
+# Display 🗿
 TARGET_SCREEN_DENSITY := 260
 
-# Kernel
+# Kernel also lame
 BOARD_BOOTIMG_HEADER_VERSION := 4
 BOARD_KERNEL_BASE := 0x3fff8000
 BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2 mem.enable_mglru=1 loglevel=4 initcall_debug=0
@@ -50,16 +49,16 @@ BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 TARGET_KERNEL_CONFIG := nevada_defconfig
 TARGET_KERNEL_SOURCE := kernel/motorola/nevada
 
-# Kernel - prebuilt
+# Kernel - prebuilt lame shit
 TARGET_FORCE_PREBUILT_KERNEL := true
 ifeq ($(TARGET_FORCE_PREBUILT_KERNEL),true)
 TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/kernel
 TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb.img
 BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
-BOARD_INCLUDE_DTB_IN_BOOTIMG :=
+BOARD_INCLUDE_DTB_IN_BOOTIMG := 
 endif
 
-# Partitions
+# Partitions Spicy Beans 🫘 
 BOARD_FLASH_BLOCK_SIZE := 262144 # (BOARD_KERNEL_PAGESIZE * 64)
 BOARD_BOOTIMAGE_PARTITION_SIZE := 27967488
 #BOARD_RECOVERYIMAGE_PARTITION_SIZE := 27967488
@@ -68,76 +67,55 @@ BOARD_SYSTEMIMAGE_PARTITION_TYPE := ext4
 BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_COPY_OUT_VENDOR := vendor
-
-# Super is huge because Motorola said "dynamic partitions weren't confusing enough" 😂
 BOARD_SUPER_PARTITION_SIZE := 9126805504 # TODO: Fix hardcoded value
 BOARD_SUPER_PARTITION_GROUPS := motorola_dynamic_partitions
 BOARD_MOTOROLA_DYNAMIC_PARTITIONS_PARTITION_LIST := system vendor product
 BOARD_MOTOROLA_DYNAMIC_PARTITIONS_SIZE := 9122611200 # TODO: Fix hardcoded value
 
-# Platform
+# Platform CRONCH🐔🐔🐔
 TARGET_BOARD_PLATFORM := mt6835
 
-# Recovery
-# Hovatek had BGRA, RGBX fixed the Nevada display
+# Recovery CRONCH
 TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
+
 # Security patch level
 VENDOR_SECURITY_PATCH := 2021-08-01
 
-# Hack: prevent anti rollback (it's over 9000!)
+# Hack: prevent anti rollback its over 9000!
 PLATFORM_SECURITY_PATCH := 2099-12-31
 VENDOR_SECURITY_PATCH := 2099-12-31
 PLATFORM_VERSION := 16.1.0
 
-# TWRP Configuration
+# TWRP Configuration 🐔🐔🐔
 TW_THEME := portrait_hdpi
 TW_EXTRA_LANGUAGES := true
 #TW_SCREEN_BLANK_ON_BOOT := true
-
 TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_USE_TOOLBOX := true
 TW_INCLUDE_REPACKTOOLS := true
-
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 3758096384
 BOARD_BOOT_HEADER_VERSION := $(BOARD_BOOTIMG_HEADER_VERSION)
-
 BOARD_USES_VENDOR_BOOTIMAGE := true
 BOARD_RAMDISK_USE_LZ4 := true
-
-# 64MB vendor_boot - do not anger the boot gods 😂
 BOARD_VENDOR_BOOTIMAGE_PARTITION_SIZE := 0x4000000
-
 BOARD_VNDK_VERSION := current
-
 BOARD_USES_RECOVERY_AS_BOOT :=
-
 BOARD_USES_GENERIC_KERNEL_IMAGE := true
 BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT := true
 BOARD_EXCLUDE_KERNEL_FROM_RECOVERY_IMAGE :=
 BOARD_MOVE_GSI_AVB_KEYS_TO_VENDOR_BOOT := true
-
 ifeq ($(BOARD_BOOT_HEADER_VERSION),4)
 	BOARD_INCLUDE_RECOVERY_RAMDISK_IN_VENDOR_BOOT := true 
 endif
-
-# Touch magic sauce 🪄
 TW_LOAD_VENDOR_BOOT_MODULES := true
 TW_INCLUDE_FASTBOOTD := true
-
 TW_LOAD_VENDOR_MODULES := "nova_0flash_mmi_v3.ko focaltech_0flash_mmi_v3.ko touch_boost.ko mtk_ioctl_touch_boost.ko"
-
 TW_LOAD_VENDOR_MODULES_EXCLUDE_GKI := true
-
-# Hovatek behavior: let screen state handle touch initialization
 TW_SCREEN_BLANK_ON_BOOT := false
-
 TARGET_SCREEN_WIDTH := 720
 TARGET_SCREEN_HEIGHT := 1604
-
 DISABLE_ARTIFACT_PATH_REQUIREMENTS := true
 TARGET_NO_RECOVERY := true
-
-# Device identity
-TW_DEVICE_VERSION := HELL
+TW_DEVICE_VERSION := Hell
