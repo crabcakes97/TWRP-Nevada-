@@ -93,10 +93,16 @@ auto                      vfat      /devices/platform/soc/11201000.usb0/11200000
 /usbotg                   auto      /dev/block/mmcblk1p2   /dev/block/mmcblk1p2            flags=display="USB-OTG 8";backup=0;storage;wipeingui;removable;fsflags="utf8"
 /usb_otg                  auto      /dev/block/sdd1                                        flags=display="USB-OTG 9";backup=0;storage;wipeingui;removable;fsflags="utf8"
 
-#DYNAMIC (super partition / logical, A/B - single definition, was duplicated before)
+#DYNAMIC (super partition / logical, A/B - erofs tried first, ext4 as fallback, matching stock)
+/system                   erofs     /dev/block/mapper/system                               flags=display="System";logical;slotselect;backup=1;flashimg=1
 /system                   ext4      /dev/block/mapper/system                               flags=display="System";logical;slotselect;backup=1;flashimg=1
+/system_ext               erofs     /dev/block/mapper/system_ext                           flags=display="System_ext";logical;slotselect;backup=1;flashimg=1
 /system_ext               ext4      /dev/block/mapper/system_ext                           flags=display="System_ext";logical;slotselect;backup=1;flashimg=1
+/vendor                   erofs     /dev/block/mapper/vendor                               flags=display="Vendor";logical;slotselect;backup=1;flashimg=1
 /vendor                   ext4      /dev/block/mapper/vendor                               flags=display="Vendor";logical;slotselect;backup=1;flashimg=1
+/product                  erofs     /dev/block/mapper/product                              flags=display="Product";logical;slotselect;backup=1;flashimg=1
 /product                  ext4      /dev/block/mapper/product                              flags=display="Product";logical;slotselect;backup=1;flashimg=1
+/vendor_dlkm              erofs     /dev/block/mapper/vendor_dlkm                          flags=display="Vendor_dlkm";logical;slotselect;backup=1;flashimg=1
 /vendor_dlkm              ext4      /dev/block/mapper/vendor_dlkm                          flags=display="Vendor_dlkm";logical;slotselect;backup=1;flashimg=1
+/system_dlkm              erofs     /dev/block/mapper/system_dlkm                          flags=display="System_dlkm";logical;slotselect;backup=1;flashimg=1
 /system_dlkm              ext4      /dev/block/mapper/system_dlkm                          flags=display="System_dlkm";logical;slotselect;backup=1;flashimg=1
