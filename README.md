@@ -43,7 +43,6 @@ vendor_boot. `TARGET_NO_RECOVERY := true` will laugh at you otherwise.)
   idea what it was looking at. Fixed + deduped the dynamic partitions.
 - **Garbled/melted text**: MTK framebuffer stride mismatch, not a font issue.
   Fixed with `RECOVERY_GRAPHICS_USE_LINELENGTH := true`.
-- **Branding**: `TW_DEVICE_VERSION` set to romlord14495.
 
 ## Status
 Source-level fixes look correct, not boot-tested yet. If you flash it and it
