@@ -76,14 +76,14 @@ BOARD_MOTOROLA_DYNAMIC_PARTITIONS_SIZE := 9122611200 # TODO: Fix hardcoded value
 TARGET_BOARD_PLATFORM := mt6835
 
 # Recovery
-TARGET_RECOVERY_PIXEL_FORMAT := BGRA_8888
+TARGET_RECOVERY_PIXEL_FORMAT := RGBA_8888
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
 # Security patch level
 VENDOR_SECURITY_PATCH := 2021-08-01
 
-# Hack: prevent anti rollback
+# Hack: prevent anti rollback over 9000
 PLATFORM_SECURITY_PATCH := 2099-12-31
 VENDOR_SECURITY_PATCH := 2099-12-31
 PLATFORM_VERSION := 16.1.0
@@ -119,7 +119,7 @@ TARGET_SCREEN_HEIGHT := 1604
 # romlord14495: fixes garbled/sheared text - MTK fb driver pads each row's
 # stride wider than the visible width, and minui was assuming stride==width.
 # This forces it to read the real line_length from fb_fix_screeninfo instead.
-RECOVERY_GRAPHICS_USE_LINELENGTH := true
+#removed
 DISABLE_ARTIFACT_PATH_REQUIREMENTS := true
 TARGET_NO_RECOVERY := true
 TW_DEVICE_VERSION := romlord14495
