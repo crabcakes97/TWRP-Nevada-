@@ -31,10 +31,61 @@ jobs:
 
       - name: Set up git identity
         run: |
-          git config --global user.name "romlord14495"
-          git config --global user.email "romlord14495@users.noreply.github.com"
+          git config --global user.name "crabcakes97"
+          git config --global user.email "eddiebob146@gmail.com"
           git config --global color.ui false
 
+      - name: Install repo tool
+        run: |
+          mkdir -p ~/bin
+          curl -s https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
+          chmod a+x ~/bin/repo
+          echo "$HOME/bin" >> "$GITHUB_PATH"
+
+      - name: Sync TWRP minimal manifest
+        run: |
+          mkdir -p twrp && cd twrp
+          repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-12.1
+          repo sync -c -j"$(nproc)" --force-sync --no-clone-bundle --no-tags
+
+      - name: Checkout this device tree into the source tree
+        uses: actions/checkout@v4
+        with:
+          path: twrp/device/motorola/nevada
+
+      - name: Checkout kernel source
+        uses: actions/checkout@v4
+        with:
+          repository: MotorolaMobilityLLC/kernel-mtk
+          path: twrp/kernel/motorola/nevada
+
+      - name: Build TWRP (packed into vendor_boot on this GKI device)
+        working-directory: twrp
+        run: |
+          set -e
+          source build/envsetup.sh
+          export ALLOW_MISSING_DEPENDENCIES=true
+          lunch twrp_nevada-${{ github.event.inputs.variant }}
+          # This device sets TARGET_NO_RECOVERY + BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT,
+          # so TWRP's ramdisk is packed into vendor_boot.img, not a standalone recovery.img.
+          # "mka recoveryimage" would build nothing useful here.
+          mka vendorbootimage -j"$(nproc)"
+
+      - name: Locate output image
+        working-directory: twrp
+        run: |
+          OUT_DIR="out/target/product/nevada"
+          echo "OUT_DIR=$OUT_DIR" >> "$GITHUB_ENV"
+          ls -la "$OUT_DIR" | grep -Ei 'vendor_boot|boot|dtbo' || true
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: twrp-nevada-vendor_boot-${{ github.run_number }}
+          path: |
+            twrp/${{ env.OUT_DIR }}/vendor_boot.img
+          if-no-files-found: warn
+          retention-days: 14
       - name: Install repo tool
         run: |
           mkdir -p ~/bin
