@@ -48,4 +48,3 @@ vendor_boot. `TARGET_NO_RECOVERY := true` will laugh at you otherwise.)
 ## Status
 Source-level fixes look correct, not boot-tested yet. If you flash it and it
 works, we did science. If not, open an issue with the TWRP log.
-```
