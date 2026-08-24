@@ -14,7 +14,6 @@ AB_OTA_PARTITIONS += \
     vendor_dlkm \
     system_ext \
     system_dlkm
-BOARD_USES_RECOVERY_AS_BOOT := true
 
 # Architecture
 TARGET_ARCH := arm64
@@ -76,11 +75,11 @@ BOARD_MOTOROLA_DYNAMIC_PARTITIONS_SIZE := 9122611200 # TODO: Fix hardcoded value
 TARGET_BOARD_PLATFORM := mt6835
 
 # Recovery
-TARGET_RECOVERY_PIXEL_FORMAT := RGBA_8888
+TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
-# Security patch level
+# Security patch level Wrong AF
 VENDOR_SECURITY_PATCH := 2021-08-01
 
 # Hack: prevent anti rollback over 9000
@@ -114,12 +113,9 @@ TW_INCLUDE_FASTBOOTD := true
 TW_LOAD_VENDOR_MODULES := "nova_0flash_mmi_v3.ko focaltech_0flash_mmi_v3.ko touch_boost.ko mtk_ioctl_touch_boost.ko"
 TW_LOAD_VENDOR_MODULES_EXCLUDE_GKI := true
 TW_SCREEN_BLANK_ON_BOOT := false
+TW_NO_SCREEN_TIMEOUT := true
 TARGET_SCREEN_WIDTH := 720
 TARGET_SCREEN_HEIGHT := 1604
-# romlord14495: fixes garbled/sheared text - MTK fb driver pads each row's
-# stride wider than the visible width, and minui was assuming stride==width.
-# This forces it to read the real line_length from fb_fix_screeninfo instead.
-#removed
 DISABLE_ARTIFACT_PATH_REQUIREMENTS := true
 TARGET_NO_RECOVERY := true
-TW_DEVICE_VERSION := romlord14495
+TW_DEVICE_VERSION := HELL
