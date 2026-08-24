@@ -1,0 +1,5 @@
+ro.sys.usb.bicr=no
+ro.sys.usb.storage.type=adb,mtp
+persist.service.adb.enable=1
+persist.service.debuggable=1
+persist.sys.usb.config=mtp,adb

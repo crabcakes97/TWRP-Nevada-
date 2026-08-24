@@ -1,0 +1,101 @@
+# NOTE (romlord14495): TWRP only reads system/etc/recovery.fstab, not this
+# file. The correct fstab content that was generated here has been merged
+# into recovery.fstab (deduped + logical flag added). Kept here for
+# reference only - not read at runtime.
+/system                   erofs     system                                                 flags=display=system;logical;slotselect;backup=1;flashimg=1
+/system                   ext4      system                                                 flags=display=system;logical;slotselect;backup=1;flashimg=1
+/system_ext               erofs     system_ext                                             flags=display=system_ext;logical;slotselect;backup=1;flashimg=1
+/system_ext               ext4      system_ext                                             flags=display=system_ext;logical;slotselect;backup=1;flashimg=1
+/vendor                   erofs     vendor                                                 flags=display=vendor;logical;slotselect;backup=1;flashimg=1
+/vendor                   ext4      vendor                                                 flags=display=vendor;logical;slotselect;backup=1;flashimg=1
+/product                  erofs     product                                                flags=display=product;logical;slotselect;backup=1;flashimg=1
+/product                  ext4      product                                                flags=display=product;logical;slotselect;backup=1;flashimg=1
+/vendor_dlkm              erofs     vendor_dlkm                                            flags=display=vendor_dlkm;logical;slotselect;backup=1;flashimg=1
+/vendor_dlkm              ext4      vendor_dlkm                                            flags=display=vendor_dlkm;logical;slotselect;backup=1;flashimg=1
+/system_dlkm              erofs     system_dlkm                                            flags=display=system_dlkm;logical;slotselect;backup=1;flashimg=1
+/system_dlkm              ext4      system_dlkm                                            flags=display=system_dlkm;logical;slotselect;backup=1;flashimg=1
+/metadata                 f2fs      /dev/block/by-name/metadata                            flags=display=metadata;backup=1;flashimg=1
+/data                     f2fs      /dev/block/by-name/userdata                            flags=display=data;backup=1;flashimg=1
+/mnt/vendor/protect_f     ext4      /dev/block/by-name/protect1                            flags=display=protect_f;backup=1;flashimg=1
+/mnt/vendor/protect_s     ext4      /dev/block/by-name/protect2                            flags=display=protect_s;backup=1;flashimg=1
+/mnt/vendor/nvdata        ext4      /dev/block/by-name/nvdata                              flags=display=nvdata;backup=1;flashimg=1
+/mnt/vendor/nvcfg         ext4      /dev/block/by-name/nvcfg                               flags=display=nvcfg;backup=1;flashimg=1
+/mnt/vendor/persist       ext4      /dev/block/by-name/persist                             flags=display=persist;backup=1;flashimg=1
+/mnt/product/persist      ext4      /dev/block/by-name/prodpersist                         flags=display=persist;backup=1;flashimg=1
+/mnt/product/logks        ext4      /dev/block/by-name/logks                               flags=display=logks;backup=1;flashimg=1
+/mnt/vendor/tzapp         ext4      /dev/block/by-name/tzapp_a                             flags=display=tzapp;backup=1;flashimg=1
+auto                      auto      /devices/platform/soc/11240000.mmc*                    flags=display=auto;backup=1;flashimg=1
+auto                      vfat      /devices/platform/usb_xhci*                            flags=display=auto;backup=1;flashimg=1
+auto                      vfat      /devices/platform/soc/11201000.usb0/11200000.xhci*     flags=display=auto;backup=1;flashimg=1
+/persistent               emmc      /dev/block/by-name/frp                                 flags=display=persistent;backup=1;flashimg=1
+/nvram                    emmc      /dev/block/by-name/nvram                               flags=display=nvram;backup=1;flashimg=1
+/proinfo                  emmc      /dev/block/by-name/proinfo                             flags=display=proinfo;backup=1;flashimg=1
+/lk1                      emmc      /dev/block/by-name/lk1                                 flags=display=lk1;backup=1;flashimg=1
+/bootloader2              emmc      /dev/block/by-name/bootloader2                         flags=display=bootloader2;backup=1;flashimg=1
+/para                     emmc      /dev/block/by-name/para                                flags=display=para;backup=1;flashimg=1
+/misc                     emmc      /dev/block/by-name/misc                                flags=display=misc;backup=1;flashimg=1
+/init_boot                emmc      /dev/block/by-name/init_boot                           flags=display=init_boot;backup=1;flashimg=1
+/boot                     emmc      /dev/block/by-name/boot                                flags=display=boot;slotselect;backup=1;flashimg=1
+/vbmeta_system            emmc      /dev/block/by-name/vbmeta_system                       flags=display=vbmeta_system;slotselect;backup=1;flashimg=1
+/logo                     emmc      /dev/block/by-name/logo                                flags=display=logo;backup=1;flashimg=1
+/expdb                    emmc      /dev/block/by-name/expdb                               flags=display=expdb;backup=1;flashimg=1
+/seccfg                   emmc      /dev/block/by-name/seccfg                              flags=display=seccfg;backup=1;flashimg=1
+/tee1                     emmc      /dev/block/by-name/tee1                                flags=display=tee1;backup=1;flashimg=1
+/tee2                     emmc      /dev/block/by-name/tee2                                flags=display=tee2;backup=1;flashimg=1
+/scp1                     emmc      /dev/block/by-name/scp1                                flags=display=scp1;backup=1;flashimg=1
+/scp2                     emmc      /dev/block/by-name/scp2                                flags=display=scp2;backup=1;flashimg=1
+/sspm1                    emmc      /dev/block/by-name/sspm1                               flags=display=sspm1;backup=1;flashimg=1
+/sspm2                    emmc      /dev/block/by-name/sspm2                               flags=display=sspm2;backup=1;flashimg=1
+/dpm1                     emmc      /dev/block/by-name/dpm1                                flags=display=dpm1;backup=1;flashimg=1
+/dpm2                     emmc      /dev/block/by-name/dpm2                                flags=display=dpm2;backup=1;flashimg=1
+/mcupm1                   emmc      /dev/block/by-name/mcupm1                              flags=display=mcupm1;backup=1;flashimg=1
+/mcupm2                   emmc      /dev/block/by-name/mcupm2                              flags=display=mcupm2;backup=1;flashimg=1
+/md1img                   emmc      /dev/block/by-name/md1img                              flags=display=md1img;backup=1;flashimg=1
+/md1dsp                   emmc      /dev/block/by-name/md1dsp                              flags=display=md1dsp;backup=1;flashimg=1
+/md1arm7                  emmc      /dev/block/by-name/md1arm7                             flags=display=md1arm7;backup=1;flashimg=1
+/md3img                   emmc      /dev/block/by-name/md3img                              flags=display=md3img;backup=1;flashimg=1
+/gz1                      emmc      /dev/block/by-name/gz1                                 flags=display=gz1;backup=1;flashimg=1
+/gz2                      emmc      /dev/block/by-name/gz2                                 flags=display=gz2;backup=1;flashimg=1
+/ccu                      emmc      /dev/block/by-name/ccu                                 flags=display=ccu;backup=1;flashimg=1
+/vcp                      emmc      /dev/block/by-name/vcp                                 flags=display=vcp;backup=1;flashimg=1
+/gpueb                    emmc      /dev/block/by-name/gpueb                               flags=display=gpueb;backup=1;flashimg=1
+/mcf_ota                  emmc      /dev/block/by-name/mcf_ota                             flags=display=mcf_ota;backup=1;flashimg=1
+/vendor_boot              emmc      /dev/block/by-name/vendor_boot                         flags=display=vendor_boot;backup=1;flashimg=1
+/mvpu_algo1               emmc      /dev/block/by-name/mvpu_algo1                          flags=display=mvpu_algo1;backup=1;flashimg=1
+/mvpu_algo2               emmc      /dev/block/by-name/mvpu_algo2                          flags=display=mvpu_algo2;backup=1;flashimg=1
+/apusys1                  emmc      /dev/block/by-name/apusys1                             flags=display=apusys1;backup=1;flashimg=1
+/apusys2                  emmc      /dev/block/by-name/apusys2                             flags=display=apusys2;backup=1;flashimg=1
+/spmfw                    emmc      /dev/block/by-name/spmfw                               flags=display=spmfw;backup=1;flashimg=1
+/pi_img                   emmc      /dev/block/by-name/pi_img                              flags=display=pi_img;backup=1;flashimg=1
+/boot_para                emmc      /dev/block/by-name/boot_para                           flags=display=boot_para;backup=1;flashimg=1
+/odmdtbo                  emmc      /dev/block/by-name/odmdtbo                             flags=display=odmdtbo;backup=1;flashimg=1
+/dtbo                     emmc      /dev/block/by-name/dtbo                                flags=display=dtbo;backup=1;flashimg=1
+/connsys_wifi             emmc      /dev/block/by-name/connsys_wifi                        flags=display=connsys_wifi;backup=1;flashimg=1
+/connsys_bt               emmc      /dev/block/by-name/connsys_bt                          flags=display=connsys_bt;backup=1;flashimg=1
+/otp                      emmc      /dev/block/by-name/otp                                 flags=display=otp;backup=1;flashimg=1
+/vbmeta                   emmc      /dev/block/by-name/vbmeta                              flags=display=vbmeta;backup=1;flashimg=1
+
+#SD cards
+/external_sd	vfat		/dev/block/mmcblk0p1	/dev/block/mmcblk0	flags=display="MicroSD Card 1";backup=0;storage;wipeingui;removable;fsflags="utf8"
+/external_sd    vfat        /dev/block/mmcblk1p1	/dev/block/mmcblk1 	flags=display="MicroSD Card 2";backup=0;storage;wipeingui;removable;fsflags="utf8"
+/external_sd	auto		/dev/block/mmcblk0p1	/dev/block/mmcblk0	flags=display="MicroSD Card 3";backup=0;storage;wipeingui;removable;fsflags="utf8"
+/external_sd    auto        /dev/block/mmcblk1p1	/dev/block/mmcblk1 	flags=display="MicroSD Card 4";backup=0;storage;wipeingui;removable;fsflags="utf8"
+
+#OTG
+/usb-otg	auto		/dev/block/sdf1	/dev/block/sdf		  flags=display="USB-OTG 1";backup=0;storage;wipeingui;removable;fsflags="utf8"
+/usb-otg    auto        /dev/block/sda1 /dev/block/sda        flags=display="USB OTG 2";backup=0;storage;wipeingui;removable;fsflags="utf8"
+/usb-otg    auto        /dev/block/sdg1 /dev/block/sdg        flags=display="USB-OTG 3";backup=0;storage;wipeingui;removable;fsflags="utf8"
+/usb_otg    auto        /dev/block/sdd1 /dev/block/sdd        flags=display="USB-OTG 5";backup=0;storage;wipeingui;removable;fsflags="utf8"
+/usb-otg    auto        /dev/block/sda1                       flags=display="USB-OTG 6";backup=0;storage;wipeingui;removable;fsflags="utf8"
+/usb-otg	auto		/dev/block/sde1	/dev/block/sde		  flags=display="USB-OTG 7";backup=0;storage;wipeingui;removable;fsflags="utf8"
+/usbotg     auto        /dev/block/mmcblk1p2  /dev/block/mmcblk1p2     flags=display="USB-OTG 8";backup=0;storage;wipeingui;removable;fsflags="utf8"
+/usb_otg    auto        /dev/block/sdd1                       flags=display="USB-OTG 9";backup=0;storage;wipeingui;removable;fsflags="utf8"
+
+#DYNAMIC
+/system            emmc     /dev/block/mapper/system                   flags=display=system;slotselect;backup=1;flashimg=1
+/system_ext            emmc     /dev/block/mapper/system_ext                   flags=display=system_ext;slotselect;backup=1;flashimg=1
+/vendor            emmc     /dev/block/mapper/vendor                   flags=display=vendor;slotselect;backup=1;flashimg=1
+/product            emmc     /dev/block/mapper/product                   flags=display=product;slotselect;backup=1;flashimg=1
+/vendor_dlkm            emmc     /dev/block/mapper/vendor_dlkm                   flags=display=vendor_dlkm;slotselect;backup=1;flashimg=1
+/system_dlkm            emmc     /dev/block/mapper/system_dlkm                   flags=display=system_dlkm;slotselect;backup=1;flashimg=1
+# Online TWRP Builder By Team Hovatek

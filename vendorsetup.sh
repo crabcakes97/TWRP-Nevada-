@@ -1,0 +1,4 @@
+
+add_lunch_combo twrp_nevada-user
+add_lunch_combo twrp_nevada-userdebug
+add_lunch_combo twrp_nevada-eng
