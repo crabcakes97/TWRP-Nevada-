@@ -6,13 +6,6 @@
 - Model: Moto G Play - 2026 (XT2615V)
 - SoC: MediaTek Dimensity 6300 / MT6835
 - Kernel: 5.15
-- Android version base: 16 (from stock)
-
-## Source
-Base tree pulled from Hovatek's Online TWRP Builder, then hand-fixed because
-the auto-generated version had a fstab that thought it was cosplaying as the
-stock init fstab. It was not. Full credit to Hovatek for the 90%, this repo
-is the other 10% 😂
 
 ## Building
 
