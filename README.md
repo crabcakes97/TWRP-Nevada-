@@ -1,5 +1,5 @@
 
-# TWRP Device Tree for Motorola nevada (Moto G Play - 2026)
+# TWRP/OrangeFox Device Tree for Motorola nevada (Moto G Play - 2026)
 
 ## Device Info
 - Codename: nevada
