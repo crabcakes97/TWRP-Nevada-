@@ -1,5 +1,5 @@
 # Android fstab file.
-# TOUCH FIRST - Persist loads immediately after data to guarantee touch
+# FINAL - Touch First + checkpoint=fs REMOVED for wipe compatibility
 
 #<src>                                           <mnt_point>      <type>  <mnt_flags and options>                          <fs_mgr_flags>
 system                                           /system          erofs   ro                                                wait,logical,first_stage_mount,resize,avb=vbmeta_system,avb_keys=/avb/q-gsi.avbpubkey:/avb/r-gsi.avbpubkey:/avb/s-gsi.avbpubkey
@@ -16,8 +16,8 @@ system_dlkm                                      /system_dlkm     erofs   ro    
 system_dlkm                                      /system_dlkm     ext4    ro                                                wait,logical,first_stage_mount,resize,avb
 /dev/block/by-name/metadata                      /metadata        f2fs    noatime,nosuid,nodev,discard,data_flush           wait,check,formattable,first_stage_mount
 
-# === 64GB STORAGE ===
-/dev/block/by-name/userdata                      /data            f2fs    noatime,nosuid,nodev,discard,reserve_root=134217728,resgid=1065,fsync_mode=nobarrier,inlinecrypt  wait,check,formattable,fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized+wrappedkey_v0,keydirectory=/metadata/vold/metadata_encryption,quota,reservedsize=128M,sysfs_path=/sys/devices/platform/soc/112b0000.ufshci,checkpoint=fs voldmanaged=sdcard0:userdata
+# === 64GB STORAGE (checkpoint=fs REMOVED - FIXES WIPE ERROR) ===
+/dev/block/by-name/userdata                      /data            f2fs    noatime,nosuid,nodev,discard,reserve_root=134217728,resgid=1065,fsync_mode=nobarrier,inlinecrypt  wait,check,formattable,fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized+wrappedkey_v0,keydirectory=/metadata/vold/metadata_encryption,quota,reservedsize=128M,sysfs_path=/sys/devices/platform/soc/112b0000.ufshci voldmanaged=sdcard0:userdata
 
 # === TOUCH / CALIBRATION (LOAD EARLY TO KILL THE DEAD-TOUCH BUG) ===
 /dev/block/by-name/protect1                     /mnt/vendor/protect_f ext4    noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc wait,check,formattable
