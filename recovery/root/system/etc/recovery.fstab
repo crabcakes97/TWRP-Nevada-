@@ -1,6 +1,8 @@
 # Android fstab file.
 # TWRP Hybrid - Stock Structure + Full Backup Support + Storage/Touch Fixes
 
+flags=slotselect_ignore
+
 # === DYNAMIC SYSTEM PARTITIONS (EXACTLY AS STOCK) ===
 system                                           /system          erofs   ro                                                wait,logical,first_stage_mount,avb=vbmeta_system,avb_keys=/avb/q-gsi.avbpubkey:/avb/r-gsi.avbpubkey:/avb/s-gsi.avbpubkey
 system                                           /system          ext4    ro                                                wait,logical,first_stage_mount,avb=vbmeta_system,avb_keys=/avb/q-gsi.avbpubkey:/avb/r-gsi.avbpubkey:/avb/s-gsi.avbpubkey
