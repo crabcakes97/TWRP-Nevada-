@@ -1,24 +1,29 @@
 # Android fstab file.
-# CRONCH - Confirmed Working Storage Fix
+# TWRP Hybrid - Stock Structure + Full Backup Support + Storage/Touch Fixes
 
-system                                           /system          erofs   ro                                                wait,logical,first_stage_mount,resize,avb=vbmeta_system,avb_keys=/avb/q-gsi.avbpubkey:/avb/r-gsi.avbpubkey:/avb/s-gsi.avbpubkey
-system                                           /system          ext4    ro                                                wait,logical,first_stage_mount,resize,avb=vbmeta_system,avb_keys=/avb/q-gsi.avbpubkey:/avb/r-gsi.avbpubkey:/avb/s-gsi.avbpubkey
-system_ext                                       /system_ext      erofs   ro                                                wait,logical,first_stage_mount,resize,avb=vbmeta_system
-system_ext                                       /system_ext      ext4    ro                                                wait,logical,first_stage_mount,resize,avb=vbmeta_system
-vendor                                           /vendor          erofs   ro                                                wait,logical,first_stage_mount,resize,avb
-vendor                                           /vendor          ext4    ro                                                wait,logical,first_stage_mount,resize,avb
-product                                          /product         erofs   ro                                                wait,logical,first_stage_mount,resize,avb
-product                                          /product         ext4    ro                                                wait,logical,first_stage_mount,resize,avb
-vendor_dlkm                                      /vendor_dlkm     erofs   ro                                                wait,logical,first_stage_mount,resize,avb
-vendor_dlkm                                      /vendor_dlkm     ext4    ro                                                wait,logical,first_stage_mount,resize,avb
-system_dlkm                                      /system_dlkm     erofs   ro                                                wait,logical,first_stage_mount,resize,avb
-system_dlkm                                      /system_dlkm     ext4    ro                                                wait,logical,first_stage_mount,resize,avb
+# === DYNAMIC SYSTEM PARTITIONS (EXACTLY AS STOCK) ===
+system                                           /system          erofs   ro                                                wait,logical,first_stage_mount,avb=vbmeta_system,avb_keys=/avb/q-gsi.avbpubkey:/avb/r-gsi.avbpubkey:/avb/s-gsi.avbpubkey
+system                                           /system          ext4    ro                                                wait,logical,first_stage_mount,avb=vbmeta_system,avb_keys=/avb/q-gsi.avbpubkey:/avb/r-gsi.avbpubkey:/avb/s-gsi.avbpubkey
+system_ext                                       /system_ext      erofs   ro                                                wait,logical,first_stage_mount,avb=vbmeta_system
+system_ext                                       /system_ext      ext4    ro                                                wait,logical,first_stage_mount,avb=vbmeta_system
+vendor                                           /vendor          erofs   ro                                                wait,logical,first_stage_mount,avb
+vendor                                           /vendor          ext4    ro                                                wait,logical,first_stage_mount,avb
+product                                          /product         erofs   ro                                                wait,logical,first_stage_mount,avb
+product                                          /product         ext4    ro                                                wait,logical,first_stage_mount,avb
+vendor_dlkm                                      /vendor_dlkm     erofs   ro                                                wait,logical,first_stage_mount,avb
+vendor_dlkm                                      /vendor_dlkm     ext4    ro                                                wait,logical,first_stage_mount,avb
+system_dlkm                                      /system_dlkm     erofs   ro                                                wait,logical,first_stage_mount,avb
+system_dlkm                                      /system_dlkm     ext4    ro                                                wait,logical,first_stage_mount,avb
+
+# === METADATA (STOCK) ===
 /dev/block/by-name/metadata                      /metadata        f2fs    noatime,nosuid,nodev,discard,data_flush           wait,check,formattable,first_stage_mount
 
-# === DATA FIXED - REMOVED latemount AND checkpoint=fs, ADDED voldmanaged ===
-/dev/block/by-name/userdata                      /data            f2fs    noatime,nosuid,nodev,discard,reserve_root=134217728,resgid=1065,fsync_mode=nobarrier,inlinecrypt  wait,check,formattable,fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized+wrappedkey_v0,keydirectory=/metadata/vold/metadata_encryption,quota,reservedsize=128M,sysfs_path=/sys/devices/platform/soc/112b0000.ufshci voldmanaged=sdcard0:userdata
+# ===  64GB INTERNAL STORAGE (TWRP FIXED) ===
+# REMOVED "latemount" | ADDED "voldmanaged=sdcard0:userdata"
+/dev/block/by-name/userdata                      /data            f2fs    noatime,nosuid,nodev,discard,reserve_root=134217728,resgid=1065,fsync_mode=nobarrier,inlinecrypt  wait,check,formattable,fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized+wrappedkey_v0,keydirectory=/metadata/vold/metadata_encryption,quota,reservedsize=128M,sysfs_path=/sys/devices/platform/soc/112b0000.ufshci,checkpoint=fs voldmanaged=sdcard0:userdata
 
-# === TOUCH FIX ===
+# === CRITICAL TOUCH/CALIBRATION (DO NOT REORDER) ===
+# These must load before the UI for instant touch response
 /dev/block/by-name/protect1                     /mnt/vendor/protect_f ext4    noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc wait,check,formattable
 /dev/block/by-name/protect2                     /mnt/vendor/protect_s ext4    noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc wait,check,formattable
 /dev/block/by-name/nvdata                       /mnt/vendor/nvdata  ext4    noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc wait,check,formattable
@@ -28,7 +33,12 @@ system_dlkm                                      /system_dlkm     ext4    ro    
 /dev/block/by-name/tzapp_a                      /mnt/vendor/tzapp   ext4    noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc wait,check,formattable
 /dev/block/by-name/logks                        /mnt/product/logks  ext4    noatime,nosuid,nodev wait,formattable,nofail,first_stage_mount
 
-# === BOOT/SECURITY ===
+# === EXTERNAL SD CARD & USB OTG ===
+/devices/platform/soc/11240000.mmc*             auto             auto    defaults                                          voldmanaged=sdcard1:auto
+/devices/platform/usb_xhci*                     auto             vfat    defaults                                          voldmanaged=usbotg:auto
+/devices/platform/soc/11201000.usb0/11200000.xhci* auto          vfat    defaults                                          voldmanaged=usbotg:auto
+
+# === FLASHING / BOOT PARTITIONS (STOCK) ===
 /dev/block/by-name/boot                          /boot            emmc    defaults                                          defaults
 /dev/block/by-name/vendor_boot                   /vendor_boot     emmc    defaults                                          defaults
 /dev/block/by-name/init_boot                     /init_boot       emmc    defaults                                          defaults
@@ -37,11 +47,46 @@ system_dlkm                                      /system_dlkm     ext4    ro    
 /dev/block/by-name/vbmeta_system                 /vbmeta_system   emmc    defaults                                          defaults
 /dev/block/by-name/misc                          /misc            emmc    defaults                                          defaults
 
-# === IMEI/BASEBAND ===
+# === MODEM / NV / RADIO / FIRMWARE (FOR COMPLETE BACKUPS) ===
+# Keep these so users can check them in the Backup menu
 /dev/block/by-name/nvram                         /nvram           emmc    defaults                                          defaults
 /dev/block/by-name/proinfo                       /proinfo         emmc    defaults                                          defaults
-
-# === EXTERNAL SD & OTG ===
-/devices/platform/soc/11240000.mmc*             auto             auto    defaults                                          voldmanaged=sdcard1:auto
-/devices/platform/usb_xhci*                     auto             vfat    defaults                                          voldmanaged=usbotg:auto
-/devices/platform/soc/11201000.usb0/11200000.xhci* auto          vfat    defaults                                          voldmanaged=usbotg:auto
+/dev/block/by-name/lk1                           /lk1             emmc    defaults                                          defaults
+/dev/block/by-name/lk2                           /lk2             emmc    defaults                                          defaults
+/dev/block/by-name/bootloader2                   /bootloader2     emmc    defaults                                          defaults
+/dev/block/by-name/para                          /para            emmc    defaults                                          defaults
+/dev/block/by-name/expdb                         /expdb           emmc    defaults                                          defaults
+/dev/block/by-name/seccfg                        /seccfg          emmc    defaults                                          defaults
+/dev/block/by-name/tee1                          /tee1            emmc    defaults                                          defaults
+/dev/block/by-name/tee2                          /tee2            emmc    defaults                                          defaults
+/dev/block/by-name/scp1                          /scp1            emmc    defaults                                          defaults
+/dev/block/by-name/scp2                          /scp2            emmc    defaults                                          defaults
+/dev/block/by-name/sspm1                         /sspm1           emmc    defaults                                          defaults
+/dev/block/by-name/sspm2                         /sspm2           emmc    defaults                                          defaults
+/dev/block/by-name/dpm1                          /dpm1            emmc    defaults                                          defaults
+/dev/block/by-name/dpm2                          /dpm2            emmc    defaults                                          defaults
+/dev/block/by-name/mcupm1                        /mcupm1          emmc    defaults                                          defaults
+/dev/block/by-name/mcupm2                        /mcupm2          emmc    defaults                                          defaults
+/dev/block/by-name/md1img                        /md1img          emmc    defaults                                          defaults
+/dev/block/by-name/md1dsp                        /md1dsp          emmc    defaults                                          defaults
+/dev/block/by-name/md1arm7                       /md1arm7         emmc    defaults                                          defaults
+/dev/block/by-name/md3img                        /md3img          emmc    defaults                                          defaults
+/dev/block/by-name/gz1                           /gz1             emmc    defaults                                          defaults
+/dev/block/by-name/gz2                           /gz2             emmc    defaults                                          defaults
+/dev/block/by-name/ccu                           /ccu             emmc    defaults                                          defaults
+/dev/block/by-name/vcp                           /vcp             emmc    defaults                                          defaults
+/dev/block/by-name/gpueb                         /gpueb           emmc    defaults                                          defaults
+/dev/block/by-name/mcf_ota                       /mcf_ota         emmc    defaults                                          defaults
+/dev/block/by-name/mvpu_algo1                    /mvpu_algo1      emmc    defaults                                          defaults
+/dev/block/by-name/mvpu_algo2                    /mvpu_algo2      emmc    defaults                                          defaults
+/dev/block/by-name/apusys1                       /apusys1         emmc    defaults                                          defaults
+/dev/block/by-name/apusys2                       /apusys2         emmc    defaults                                          defaults
+/dev/block/by-name/spmfw                         /spmfw           emmc    defaults                                          defaults
+/dev/block/by-name/pi_img                        /pi_img          emmc    defaults                                          defaults
+/dev/block/by-name/boot_para                     /boot_para       emmc    defaults                                          defaults
+/dev/block/by-name/odmdtbo                       /odmdtbo         emmc    defaults                                          defaults
+/dev/block/by-name/connsys_wifi                  /connsys_wifi    emmc    defaults                                          defaults
+/dev/block/by-name/connsys_bt                    /connsys_bt      emmc    defaults                                          defaults
+/dev/block/by-name/otp                           /otp             emmc    defaults                                          defaults
+/dev/block/by-name/logo                          /logo            emmc    defaults                                          defaults
+/dev/block/by-name/frp                           /persistent      emmc    defaults                                          defaults
