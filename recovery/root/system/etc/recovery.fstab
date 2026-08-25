@@ -1,5 +1,5 @@
 # Android fstab file.
-# TWRP Hybrid - Stock Structure + Full Backup Support + Storage/Touch Fixes
+# TWRP Hybrid - Stock Structure + Full Backup Support + Storage/Touch Fixes lame too 
 
 flags=slotselect_ignore
 
